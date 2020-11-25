@@ -1,0 +1,36 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TechnicalTestProject.Models.ProductBasketModels;
+
+namespace TechnicalTestProjectTests
+{
+    [TestClass]
+    public class ProductsTests
+    {
+        [TestMethod]
+        public void AssertThatProductsModalQuanitytIsSetToZero()
+        {
+            ProductDetailsModel model = new ProductDetailsModel();
+            Assert.AreEqual(0, model.Quantity, "Quantity is not defaulted to 0");
+        }
+
+        [TestMethod]
+        public void AssertThatModelDataTypesAreCorrect()
+        {
+            ProductDetailsModel model = new ProductDetailsModel();
+            Assert.IsTrue(Type.GetTypeCode(model.Price.GetType()) == TypeCode.Decimal);
+            Assert.IsTrue(Type.GetTypeCode(model.Quantity.GetType()) == TypeCode.Int32);
+        }
+
+        [TestMethod]
+        public void AssertPortionOfChipsIsSetUpCorrect()
+        {
+            ChipsModel model = new ChipsModel();
+            Assert.AreEqual("Portion of Chips", model.Product.ProductName);
+            Assert.AreEqual((decimal)1.80, model.Product.Price);
+            Assert.AreEqual(0, model.Product.Quantity);
+        }
+    }
+}
