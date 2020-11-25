@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TechnicalTestProject.Models.BasketModels;
+using TechnicalTestProject.Models;
 using TechnicalTestProject.Models.ProductBasketModels;
 using TechnicalTestProject.Utils;
 
@@ -16,12 +16,11 @@ namespace TechnicalTestProjectTests
         [TestMethod]
         public void AssertThatAddingToBasketWorks()
         {
-            BasketModel model = new BasketModel();
+            CompleteBasketModel model = new CompleteBasketModel();
             ChipsModel product = new ChipsModel();
             product.Product.Quantity = 1;
-            BasketUtils.AddToBasket(model, product.Product);
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, product.Product);
 
-            Assert.IsTrue(model.Products.Sum(x => x.Quantity) == 1);
             Assert.IsTrue((decimal)1.80 == model.TotalPrice);
         }
 
@@ -29,12 +28,11 @@ namespace TechnicalTestProjectTests
         [TestMethod]
         public void AssertThatAddingMultipleItemsToBasketWorks()
         {
-            BasketModel model = new BasketModel();
+            CompleteBasketModel model = new CompleteBasketModel();
             ChipsModel product = new ChipsModel();
             product.Product.Quantity = 2;
-            BasketUtils.AddToBasket(model, product.Product);
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, product.Product);
 
-            Assert.IsTrue(model.Products.Sum(x => x.Quantity) == 2);
             Assert.IsTrue((decimal)3.60 == model.TotalPrice);
         }
 
@@ -42,19 +40,17 @@ namespace TechnicalTestProjectTests
         [TestMethod]
         public void AssertThatAddingToBasketThenAddingAnotherItemWorks()
         {
-            BasketModel model = new BasketModel();
+            CompleteBasketModel model = new CompleteBasketModel();
             ChipsModel product = new ChipsModel();
             product.Product.Quantity = 1;
-            BasketUtils.AddToBasket(model, product.Product);
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, product.Product);
 
-            Assert.IsTrue(model.Products.Sum(x => x.Quantity) == 1);
             Assert.IsTrue((decimal)1.80 == model.TotalPrice);
 
             ChipsModel productTwo = new ChipsModel();
             productTwo.Product.Quantity = 1;
-            BasketUtils.AddToBasket(model, productTwo.Product);
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, productTwo.Product);
 
-            Assert.IsTrue(model.Products.Sum(x => x.Quantity) == 2);
             Assert.IsTrue((decimal)3.60 == model.TotalPrice);
         }
     }

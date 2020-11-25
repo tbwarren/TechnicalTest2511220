@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TechnicalTestProject.Models;
+using TechnicalTestProject.Models.ProductBasketModels;
+using TechnicalTestProject.Utils;
 
 namespace TechnicalTestProject.Controllers
 {
@@ -18,15 +20,41 @@ namespace TechnicalTestProject.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(CompleteBasketModel viewModel)
         {
-            return View();
+            if (viewModel == null)
+            { 
+                viewModel = new CompleteBasketModel();
+            }
+
+            if (viewModel.Chips == null)
+            {
+                viewModel.Chips = new ChipsModel();
+            }
+
+
+            return View(viewModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult UpdateBasket(CompleteBasketModel viewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (viewModel.Chips.Product.Quantity > 0)
+                {
+                    viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.TotalPrice, viewModel.Chips.Product);
+                    //Reset the Qauntity to 0 after completing adding to basket
+                    viewModel.Chips.Product.Quantity = 0;
+                }
+            }
+            else
+            {
+                return View("Index",viewModel);
+            }
+
+            return RedirectToAction("Index", viewModel);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
