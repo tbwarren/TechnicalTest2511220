@@ -21,6 +21,22 @@
             </div>
             <div class="col-xl-12 row">
                 <div class="col-xl-3">
+                    @(Model.Pies.Product.ProductName)
+                </div>
+                <div class="col-xl-3">
+                    £@(Model.Pies.Product.Price.ToString("F"))
+                </div>
+                <div class="col-xl-3">
+                    <input asp-for="@Model.Pies.Product.Quantity" type="number" class="form-control round-corners" />
+                    <span asp-validation-for="@Model.Pies.Product.Quantity" class="text-danger"></span>
+                </div>
+                <div class="col-xl-3">
+                    <input hidden asp-for="@Model.Pies.Product.ExpiryDate" class="form-control round-corners" />
+                    <span asp-validation-for="@Model.Pies.Product.ExpiryDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-xl-12 row">
+                <div class="col-xl-3">
                     Total Price
                 </div>
                 <div class="col-xl-3">

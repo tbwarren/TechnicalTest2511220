@@ -41,6 +41,7 @@ namespace TechnicalTestProject.Models.ProductBasketModels
         [Required]
         public int Quantity { get; set; }
         public DateTime? ExpiryDate { get; set; }
+        public bool Validated { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -53,6 +54,21 @@ namespace TechnicalTestProject.Models.ProductBasketModels
             if (Price < 0)
             {
                 results.Add(new ValidationResult("The Price Assigned cannot be negative", new[] { "Price" }));
+            }
+
+            if (ExpiryDate == null)
+            {
+                results.Add(new ValidationResult("Pies Require an Expiry Date", new[] { "ExpiryDate" }));
+                Validated = false;
+            }
+            else if (((DateTime)ExpiryDate).Date < DateTime.Now.Date)
+            {
+                results.Add(new ValidationResult("The number of Pies requested is lower than the number that have not Expired", new[] { "ExpiryDate" }));
+                Validated = false;
+            }
+            else
+            {
+                Validated = true;
             }
             return results;
         }

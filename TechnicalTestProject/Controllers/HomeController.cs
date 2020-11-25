@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TechnicalTestProject.Models;
 using TechnicalTestProject.Models.ProductBasketModels;
+using TechnicalTestProject.Models.ProductModels;
 using TechnicalTestProject.Utils;
 
 namespace TechnicalTestProject.Controllers
@@ -32,6 +33,11 @@ namespace TechnicalTestProject.Controllers
                 viewModel.Chips = new ChipsModel();
             }
 
+            if (viewModel.Pies == null)
+            {
+                viewModel.Pies = new PiesModel();
+            }
+
 
             return View(viewModel);
         }
@@ -45,6 +51,12 @@ namespace TechnicalTestProject.Controllers
                     viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.TotalPrice, viewModel.Chips.Product);
                     //Reset the Qauntity to 0 after completing adding to basket
                     viewModel.Chips.Product.Quantity = 0;
+                }
+                if (viewModel.Pies.Product.Quantity > 0)
+                {
+                    viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.TotalPrice, viewModel.Pies.Product);
+                    //Reset the Qauntity to 0 after completing adding to basket
+                    viewModel.Pies.Product.Quantity = 0;
                 }
             }
             else
@@ -65,10 +77,6 @@ namespace TechnicalTestProject.Controllers
 }
 
 //pass current total in the redirect instead of full viewModel
-//add in datetimes for pie
-//add in pricing for pie
-//add in price for pie if expiry date is today
-//do not allow to sell a pie that has already expired
 
 //when there is a pie and chips together, make a 20% discount to both items
 //as many as there are where they are the same

@@ -59,7 +59,7 @@ namespace TechnicalTestProjectTests
         {
             //Ensure the expiry Date is not today for this test
             PiesModel model = new PiesModel(DateTime.Now.AddDays(-2));
-            Assert.IsFalse(model.Validated);
+            Assert.IsFalse(model.Product.Validated);
         }
     }
 }
