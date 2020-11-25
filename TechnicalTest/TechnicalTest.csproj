@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\BasketModels\" />
+    <Folder Include="Models\ProductModels\" />
+    <Folder Include="Views\Basket\" />
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
+</Project>
