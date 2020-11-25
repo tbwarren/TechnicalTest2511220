@@ -63,3 +63,14 @@ namespace TechnicalTestProject.Controllers
         }
     }
 }
+
+//pass current total in the redirect instead of full viewModel
+//add in datetimes for pie
+//add in pricing for pie
+//add in price for pie if expiry date is today
+//do not allow to sell a pie that has already expired
+
+//when there is a pie and chips together, make a 20% discount to both items
+//as many as there are where they are the same
+//exclude those that are not paired
+//do the matsh to check that the discount to be provided is the lowest, so if the pie is 5% off, pick that, otherwise pick the 20% off, but do rules for this

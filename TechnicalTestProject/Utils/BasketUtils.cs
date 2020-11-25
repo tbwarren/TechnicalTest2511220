@@ -13,6 +13,7 @@ namespace TechnicalTestProject.Utils
         {
             //Get the extra price and add it to the existing total price
             decimal AdditionalPrice = (NewItem.Price * (decimal)NewItem.Quantity);
+
             return CurrentValue + AdditionalPrice;
         }
     }

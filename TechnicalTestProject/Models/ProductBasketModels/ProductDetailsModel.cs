@@ -19,6 +19,19 @@ namespace TechnicalTestProject.Models.ProductBasketModels
             Price = _price;
             Quantity = 0;
         }
+        public ProductDetailsModel(string _productName, decimal _price, DateTime? _expiryDate)
+        {
+            ProductName = _productName;
+            Price = _price;
+
+            if (((DateTime)_expiryDate).Date == DateTime.Now.Date)
+            {
+                //No need for rounding as requirements do not have odd number pricing at present
+                Price = Price / 2;
+            }
+            Quantity = 0;
+            ExpiryDate = _expiryDate;
+        }
 
         [Required]
         public string ProductName { get; set; }
@@ -27,6 +40,7 @@ namespace TechnicalTestProject.Models.ProductBasketModels
         public decimal Price { get; set; }
         [Required]
         public int Quantity { get; set; }
+        public DateTime? ExpiryDate { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using TechnicalTestProject.Models;
 using TechnicalTestProject.Models.ProductBasketModels;
+using TechnicalTestProject.Models.ProductModels;
 using TechnicalTestProject.Utils;
 
 namespace TechnicalTestProjectTests
@@ -52,6 +53,24 @@ namespace TechnicalTestProjectTests
             model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, productTwo.Product);
 
             Assert.IsTrue((decimal)3.60 == model.TotalPrice);
+        }
+
+        //Add two different products
+        [TestMethod]
+        public void AssertThatAddingToBasketThenAddingADifferentItemWorks()
+        {
+            CompleteBasketModel model = new CompleteBasketModel();
+            ChipsModel product = new ChipsModel();
+            product.Product.Quantity = 1;
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, product.Product);
+
+            Assert.IsTrue((decimal)1.80 == model.TotalPrice);
+
+            PiesModel productTwo = new PiesModel(DateTime.Now.AddDays(2));
+            productTwo.Product.Quantity = 1;
+            model.TotalPrice = BasketUtils.AddToBasket(model.TotalPrice, productTwo.Product);
+
+            Assert.IsTrue((decimal)5.00 == model.TotalPrice);
         }
     }
 }
