@@ -35,14 +35,22 @@
                     <span asp-validation-for="@Model.Pies.Product.ExpiryDate" class="text-danger"></span>
                 </div>
             </div>
+            <input hidden asp-for="@Model.CurrentNumberOfChips" class="form-control round-corners" />
+            <input hidden asp-for="@Model.CurrentNumberOfNearlyExpiredPies" class="form-control round-corners" />
+            <input hidden asp-for="@Model.CurrentNumberOfPies" class="form-control round-corners" />
             <div class="col-xl-12 row">
                 <div class="col-xl-3">
                     Total Price
                 </div>
                 <div class="col-xl-3">
+                    Currently in the basket: <br/>
+                    Numer of Chips @(Model.CurrentNumberOfChips)<br/>
+                    Number of Pies @(Model.CurrentNumberOfNearlyExpiredPies + Model.CurrentNumberOfPies)
                 </div>
                 <div class="col-xl-3">
-                    <input asp-for=TotalPrice />
+                    <input asp-for=TotalPrice hidden/>
+                    Total Price: <br/>
+                    £@(Model.TotalPrice.ToString("F"))
                 </div>
             </div>
 

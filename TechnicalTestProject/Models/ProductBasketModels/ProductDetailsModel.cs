@@ -23,12 +23,6 @@ namespace TechnicalTestProject.Models.ProductBasketModels
         {
             ProductName = _productName;
             Price = _price;
-
-            if (((DateTime)_expiryDate).Date == DateTime.Now.Date)
-            {
-                //No need for rounding as requirements do not have odd number pricing at present
-                Price = Price / 2;
-            }
             Quantity = 0;
             ExpiryDate = _expiryDate;
         }
@@ -56,19 +50,22 @@ namespace TechnicalTestProject.Models.ProductBasketModels
                 results.Add(new ValidationResult("The Price Assigned cannot be negative", new[] { "Price" }));
             }
 
-            if (ExpiryDate == null)
+            if (ProductName == "Pies")
             {
-                results.Add(new ValidationResult("Pies Require an Expiry Date", new[] { "ExpiryDate" }));
-                Validated = false;
-            }
-            else if (((DateTime)ExpiryDate).Date < DateTime.Now.Date)
-            {
-                results.Add(new ValidationResult("The number of Pies requested is lower than the number that have not Expired", new[] { "ExpiryDate" }));
-                Validated = false;
-            }
-            else
-            {
-                Validated = true;
+                if (ExpiryDate == null)
+                {
+                    results.Add(new ValidationResult("Pies Require an Expiry Date", new[] { "ExpiryDate" }));
+                    Validated = false;
+                }
+                else if (((DateTime)ExpiryDate).Date < DateTime.Now.Date)
+                {
+                    results.Add(new ValidationResult("The number of Pies requested is lower than the number that have not Expired", new[] { "ExpiryDate" }));
+                    Validated = false;
+                }
+                else
+                {
+                    Validated = true;
+                }
             }
             return results;
         }

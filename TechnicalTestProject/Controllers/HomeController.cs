@@ -28,17 +28,9 @@ namespace TechnicalTestProject.Controllers
                 viewModel = new CompleteBasketModel();
             }
 
-            if (viewModel.Chips == null)
-            {
-                viewModel.Chips = new ChipsModel();
-            }
+            viewModel.Chips = new ChipsModel();
 
-            if (viewModel.Pies == null)
-            {
-                viewModel.Pies = new PiesModel();
-            }
-
-
+            viewModel.Pies = new PiesModel();
             return View(viewModel);
         }
 
@@ -48,16 +40,25 @@ namespace TechnicalTestProject.Controllers
             {
                 if (viewModel.Chips.Product.Quantity > 0)
                 {
-                    viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.TotalPrice, viewModel.Chips.Product);
-                    //Reset the Qauntity to 0 after completing adding to basket
+                    viewModel.CurrentNumberOfChips += viewModel.Chips.Product.Quantity;
+                    //Reset the Quantity to 0 after completing adding to basket
                     viewModel.Chips.Product.Quantity = 0;
                 }
                 if (viewModel.Pies.Product.Quantity > 0)
                 {
-                    viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.TotalPrice, viewModel.Pies.Product);
-                    //Reset the Qauntity to 0 after completing adding to basket
+                    if (((DateTime)viewModel.Pies.Product.ExpiryDate).Date == DateTime.Now.Date)
+                    {
+                        viewModel.CurrentNumberOfNearlyExpiredPies += viewModel.Pies.Product.Quantity;
+                    }
+                    else
+                    {
+                        viewModel.CurrentNumberOfPies += viewModel.Pies.Product.Quantity;
+                    }
+                    //Reset the Quantity to 0 after completing adding to basket
                     viewModel.Pies.Product.Quantity = 0;
                 }
+
+                viewModel.TotalPrice = BasketUtils.AddToBasket(viewModel.CurrentNumberOfChips, viewModel.CurrentNumberOfPies, viewModel.CurrentNumberOfNearlyExpiredPies);
             }
             else
             {
@@ -75,10 +76,3 @@ namespace TechnicalTestProject.Controllers
         }
     }
 }
-
-//pass current total in the redirect instead of full viewModel
-
-//when there is a pie and chips together, make a 20% discount to both items
-//as many as there are where they are the same
-//exclude those that are not paired
-//do the matsh to check that the discount to be provided is the lowest, so if the pie is 5% off, pick that, otherwise pick the 20% off, but do rules for this

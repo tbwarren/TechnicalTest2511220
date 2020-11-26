@@ -45,16 +45,6 @@ namespace TechnicalTestProjectTests
         }
 
         [TestMethod]
-        public void AssesrtPiesGoingOutOfDateTodayIsSetUpCorrectly()
-        {
-            //Ensure the expiry Date is not today for this test
-            PiesModel model = new PiesModel(DateTime.Now);
-            Assert.AreEqual("Pies", model.Product.ProductName);
-            Assert.AreEqual((decimal)1.60, model.Product.Price);
-            Assert.AreEqual(0, model.Product.Quantity);
-        }
-
-        [TestMethod]
         public void AssesrtExpiredPiesIsSetUpCorrectly()
         {
             //Ensure the expiry Date is not today for this test

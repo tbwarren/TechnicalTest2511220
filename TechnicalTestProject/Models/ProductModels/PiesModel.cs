@@ -18,7 +18,7 @@ namespace TechnicalTestProject.Models.ProductModels
         public PiesModel()
         {
             //Defaulting to a specific datetime when no datetime is set, this is due to having no database connectuion, if we had this we could use this when settign up the db
-            Product = new ProductDetailsModel("Pies", (decimal)3.20, DateTime.Now.AddDays(-1));
+            Product = new ProductDetailsModel("Pies", (decimal)3.20, DateTime.Now.AddDays(1));
         }
 
         public ProductDetailsModel Product { get; set; }

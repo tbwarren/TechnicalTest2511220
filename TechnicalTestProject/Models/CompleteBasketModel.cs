@@ -12,5 +12,8 @@ namespace TechnicalTestProject.Models
         public ChipsModel Chips { get; set; }
         public PiesModel Pies { get; set; }
         public decimal TotalPrice { get; set; }
+        public int CurrentNumberOfChips { get; set; }
+        public int CurrentNumberOfPies { get; set; }
+        public int CurrentNumberOfNearlyExpiredPies { get; set; }
     }
 }
